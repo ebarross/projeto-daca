@@ -1,5 +1,6 @@
 package com.projetodaca.hitfire.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,12 +12,22 @@ public class Plataforma {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
+	@Column(nullable = false)
 	private String nome;
-	
+
+	@Column(name = "img_logo")
 	private String imgLogo;
-	
+
+	@Column
 	private String site;
+
+	public Plataforma() {
+	}
+
+	public Plataforma(String nome) {
+		this.nome = nome;
+	}
 
 	public Integer getId() {
 		return id;
@@ -49,5 +60,5 @@ public class Plataforma {
 	public void setSite(String site) {
 		this.site = site;
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package com.projetodaca.hitfire.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +12,13 @@ public class Genero {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
+	@Column(nullable = false)
 	private String nome;
+
+	public Genero(String nome) {
+		this.nome = nome;
+	}
 
 	public Integer getId() {
 		return id;
@@ -29,5 +35,5 @@ public class Genero {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 }
