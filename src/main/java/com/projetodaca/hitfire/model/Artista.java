@@ -26,7 +26,6 @@ public class Artista {
 	@Column
 	private String email;
 
-	@Column(nullable = false)
 	@ManyToOne
 	private Genero genero;
 

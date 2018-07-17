@@ -9,7 +9,6 @@
 	<packaging>jar</packaging>
 
 	<name>hitfire</name>
-	<description>Demo project for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -65,4 +64,5 @@
 	</build>
 
 
+	<description>Projeto - DACA.</description>
 </project>

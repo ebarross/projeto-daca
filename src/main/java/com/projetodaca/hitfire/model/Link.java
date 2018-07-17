@@ -15,12 +15,10 @@ public class Link {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Column(nullable = false)
 	@ManyToOne
 	@JoinColumn(name = "midia_id")
 	private Midia midia;
 
-	@Column(nullable = false)
 	@ManyToOne
 	@JoinColumn(name = "plataforma_id")
 	private Plataforma plataforma;

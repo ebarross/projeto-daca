@@ -21,7 +21,6 @@ public class Midia {
 	@Column(nullable = false)
 	private String nome;
 
-	@Column(nullable = false)
 	@ManyToOne
 	@JoinColumn(name = "artista_id")
 	private Artista artista;
