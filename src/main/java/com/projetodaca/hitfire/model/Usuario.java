@@ -21,9 +21,10 @@ public class Usuario {
 
 	@Column(nullable = false)
 	private String senha;
-	
-	public Usuario() {}
-	
+
+	public Usuario() {
+	}
+
 	public Usuario(String nome, String email, String senha) {
 		this.nome = nome;
 		this.email = email;
