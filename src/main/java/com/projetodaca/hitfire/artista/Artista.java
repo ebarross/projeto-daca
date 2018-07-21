@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.model;
+package com.projetodaca.hitfire.artista;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.projetodaca.hitfire.genero.Genero;
+import com.projetodaca.hitfire.midia.Midia;
 
 import java.util.List;
 

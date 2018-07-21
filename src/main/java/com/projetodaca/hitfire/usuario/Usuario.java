@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.model;
+package com.projetodaca.hitfire.usuario;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

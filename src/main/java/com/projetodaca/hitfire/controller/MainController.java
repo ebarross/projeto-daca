@@ -1,38 +1,20 @@
 package com.projetodaca.hitfire.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projetodaca.hitfire.model.Usuario;
-import com.projetodaca.hitfire.repository.UsuarioRepository;
+import com.projetodaca.hitfire.usuario.UsuarioRepository;
 
 @RestController
 @RequestMapping("/")
-public class MainController {
+class MainController {
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private final String msgHome = "Hitfire API v1.0";
 
 	@RequestMapping("/")
 	public String home() {
-		return "Olá";
+		return msgHome;
 	}
 
-	@GetMapping(path = "/add")
-	public String addUsuario(@RequestParam String nome, @RequestParam String email, @RequestParam String senha) {
-		Usuario usuario = new Usuario();
-		usuario.setNome(nome);
-		usuario.setEmail(email);
-		usuario.setSenha(senha);
-		usuarioRepository.save(usuario);
-		return "Salvo!";
-	}
-
-	@GetMapping(path = "usuarios")
-	public Iterable<Usuario> getUsuarios() {
-		return usuarioRepository.findAll();
-	}
 }
