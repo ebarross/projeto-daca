@@ -1,10 +1,10 @@
-package com.projetodaca.hitfire.midia;
+package com.projetodaca.hitfire.genero;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/midias")
-public class MidiaController {
+@RequestMapping("/generos")
+public class GeneroRestController {
 
 }

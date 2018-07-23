@@ -1,10 +1,10 @@
-package com.projetodaca.hitfire.plataforma;
+package com.projetodaca.hitfire.midia;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/plataformas")
-public class PlataformaController {
+@RequestMapping("/midias")
+public class MidiaRestController {
 
 }
