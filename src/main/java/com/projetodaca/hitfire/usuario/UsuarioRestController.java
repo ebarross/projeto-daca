@@ -1,11 +1,11 @@
 package com.projetodaca.hitfire.usuario;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,16 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.projetodaca.hitfire.ResourceNotFoundException;
+import com.projetodaca.hitfire.exception.ResourceNotFoundException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -44,36 +42,70 @@ class UsuarioRestController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		usuarioRepository.save(usuario);
+		Usuario novoUsuario = usuarioRepository.save(usuario);
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId())
-				.toUri();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(novoUsuario.getId()).toUri();
 
 		return ResponseEntity.created(location).build();
 	}
 
 	@ApiOperation(value = "Atualiza um usuário")
 	@PutMapping
-	public Usuario atualizaUsuario(Usuario usuario) {
-		return usuarioService.atualizaUsuario(usuario);
+	public ResponseEntity<?> atualizaUsuario(@RequestBody Usuario usuario) {
+		
+		if (usuario == null || usuario.getId() == null) {
+			throw new ResourceNotFoundException();
+		}
+		
+		Boolean usuarioExistente = this.usuarioRepository.findById(usuario.getId()).isPresent();
+
+		if (usuarioExistente) {
+			this.usuarioService.atualizaUsuario(usuario);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+
+		this.usuarioRepository.save(usuario);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	@ApiOperation(value = "Retorna um usuário")
 	@GetMapping("/{id}")
-	public Optional<Usuario> getUsuario(@PathVariable Integer id) {
-		return usuarioRepository.findById(id);
+	public ResponseEntity<Usuario> getUsuario(@PathVariable Integer id) {
+
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+
+		if (!usuario.isPresent()) {
+			throw new ResourceNotFoundException(id.toString());
+		}
+
+		return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Exclui um usuário")
 	@DeleteMapping("/{id}")
-	public void excluiUsuario(@PathVariable Long id) {
-
+	public ResponseEntity<?> excluiUsuario(@PathVariable Integer id) {
+		
+		Optional<Usuario> usuario = this.usuarioRepository.findById(id);
+		
+		if (id == null || !usuario.isPresent()) {
+			throw new ResourceNotFoundException();
+		}
+		
+		usuarioRepository.deleteById(usuario.get().getId());
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Retorna todos os usuários")
 	@GetMapping
-	public Iterable<Usuario> getUsuarios() {
-		return usuarioRepository.findAll();
+	public ResponseEntity<?> getUsuarios() {
+		List<Usuario> usuarios = usuarioService.getUsuarios();
+
+		if (usuarios.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+
+		return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
 
 }
