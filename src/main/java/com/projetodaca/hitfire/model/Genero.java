@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.genero;
+package com.projetodaca.hitfire.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

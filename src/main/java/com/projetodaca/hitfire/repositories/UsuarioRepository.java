@@ -1,6 +1,8 @@
-package com.projetodaca.hitfire.usuario;
+package com.projetodaca.hitfire.repositories;
 
 import org.springframework.data.repository.CrudRepository;
+
+import com.projetodaca.hitfire.model.Usuario;
 
 // essa inferface sera auto implementada pelo spring numa bean chamada usuarioRepository.
 

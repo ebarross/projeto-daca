@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.plataforma;
+package com.projetodaca.hitfire.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,8 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-public class Plataforma {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity // informar que sera uma tabela no bd.
+public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,17 +18,19 @@ public class Plataforma {
 	@Column(nullable = false)
 	private String nome;
 
-	@Column(name = "img_logo")
-	private String imgLogo;
+	@Column(nullable = false)
+	private String email;
 
-	@Column
-	private String site;
+	@Column(nullable = false)
+	private String senha;
 
-	public Plataforma() {
+	public Usuario() {
 	}
 
-	public Plataforma(String nome) {
+	public Usuario(String nome, String email, String senha) {
 		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -45,35 +49,35 @@ public class Plataforma {
 		this.nome = nome;
 	}
 
-	public String getImgLogo() {
-		return imgLogo;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setImgLogo(String imgLogo) {
-		this.imgLogo = imgLogo;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getSite() {
-		return site;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setSite(String site) {
-		this.site = site;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override
 	public String toString() {
-		return "Plataforma [id=" + id + ", nome=" + nome + ", imgLogo=" + imgLogo + ", site=" + site + "]";
+		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((imgLogo == null) ? 0 : imgLogo.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((site == null) ? 0 : site.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
 
@@ -85,28 +89,27 @@ public class Plataforma {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Plataforma other = (Plataforma) obj;
+		Usuario other = (Usuario) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (imgLogo == null) {
-			if (other.imgLogo != null)
-				return false;
-		} else if (!imgLogo.equals(other.imgLogo))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (site == null) {
-			if (other.site != null)
+		if (senha == null) {
+			if (other.senha != null)
 				return false;
-		} else if (!site.equals(other.site))
+		} else if (!senha.equals(other.senha))
 			return false;
 		return true;
 	}
-
 }

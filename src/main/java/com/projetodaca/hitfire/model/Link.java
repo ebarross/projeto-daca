@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.link;
+package com.projetodaca.hitfire.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,9 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.projetodaca.hitfire.midia.Midia;
-import com.projetodaca.hitfire.plataforma.Plataforma;
 
 @Entity
 public class Link {

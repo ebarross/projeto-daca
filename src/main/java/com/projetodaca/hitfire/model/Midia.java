@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.midia;
+package com.projetodaca.hitfire.model;
 
 import java.util.List;
 
@@ -10,9 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.projetodaca.hitfire.artista.Artista;
-import com.projetodaca.hitfire.link.Link;
 
 @Entity
 public class Midia {

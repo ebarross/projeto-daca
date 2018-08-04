@@ -1,10 +1,13 @@
-package com.projetodaca.hitfire.usuario;
+package com.projetodaca.hitfire.services;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.projetodaca.hitfire.model.Usuario;
+import com.projetodaca.hitfire.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioService {

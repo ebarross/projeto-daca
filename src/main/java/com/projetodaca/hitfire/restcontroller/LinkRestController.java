@@ -1,10 +1,10 @@
-package com.projetodaca.hitfire.genero;
+package com.projetodaca.hitfire.restcontroller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/generos")
-public class GeneroRestController {
+@RequestMapping("/links")
+public class LinkRestController {
 
 }

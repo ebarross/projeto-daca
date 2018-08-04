@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.artista;
+package com.projetodaca.hitfire.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,9 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.projetodaca.hitfire.genero.Genero;
-import com.projetodaca.hitfire.midia.Midia;
 
 import java.util.List;
 
@@ -29,15 +26,15 @@ public class Artista {
 	@Column
 	private String email;
 
-	@ManyToOne
-	private Genero genero;
+	@Column
+	private Integer genero;
 
 	@OneToMany(mappedBy = "artista")
 	private List<Midia> midias;
 
-	public Artista(String nome, Genero genero) {
+	public Artista(String nome, GeneroEnum genero) {
 		this.nome = nome;
-		this.genero = genero;
+		this.genero = genero.getCodigo();
 	}
 
 	public String getNome() {

@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.artista;
+package com.projetodaca.hitfire.services;
 
 import org.springframework.stereotype.Service;
 

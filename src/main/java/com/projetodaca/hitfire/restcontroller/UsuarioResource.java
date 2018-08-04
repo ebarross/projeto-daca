@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.usuario;
+package com.projetodaca.hitfire.restcontroller;
 
 import java.net.URI;
 import java.util.List;
@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.projetodaca.hitfire.exception.ResourceNotFoundException;
+import com.projetodaca.hitfire.model.Usuario;
+import com.projetodaca.hitfire.repositories.UsuarioRepository;
+import com.projetodaca.hitfire.services.UsuarioService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/usuarios")
 @Api(value = "Usuários")
-class UsuarioRestController {
+class UsuarioResource {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -53,11 +55,11 @@ class UsuarioRestController {
 	@ApiOperation(value = "Atualiza um usuário")
 	@PutMapping
 	public ResponseEntity<?> atualizaUsuario(@RequestBody Usuario usuario) {
-		
+
 		if (usuario == null || usuario.getId() == null) {
 			throw new ResourceNotFoundException();
 		}
-		
+
 		Boolean usuarioExistente = this.usuarioRepository.findById(usuario.getId()).isPresent();
 
 		if (usuarioExistente) {
@@ -85,13 +87,13 @@ class UsuarioRestController {
 	@ApiOperation(value = "Exclui um usuário")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluiUsuario(@PathVariable Integer id) {
-		
+
 		Optional<Usuario> usuario = this.usuarioRepository.findById(id);
-		
+
 		if (id == null || !usuario.isPresent()) {
 			throw new ResourceNotFoundException();
 		}
-		
+
 		usuarioRepository.deleteById(usuario.get().getId());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
