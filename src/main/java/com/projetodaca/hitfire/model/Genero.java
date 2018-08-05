@@ -1,75 +1,37 @@
 package com.projetodaca.hitfire.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+public enum Genero {
 
-@Entity
-public class Genero {
+	BREGA(1, "Brega"), FORRO(2, "Forró"), FUNK(3, "Funk"), PAGODE(4, "Pagode"), SERTANEJO(5, "Sertanejo");
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-
-	@Column(nullable = false)
+	private Integer codigo;
 	private String nome;
 
-	public Genero(String nome) {
+	private Genero(Integer codigo, String nome) {
+		this.codigo = codigo;
 		this.nome = nome;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public int getCodigo() {
+		return codigo;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	public static Genero toEnum(Integer cod) {
+		if (cod == null) {
+			return null;
+		}
 
-	@Override
-	public String toString() {
-		return "Genero [id=" + id + ", nome=" + nome + "]";
-	}
+		for (Genero g : Genero.values()) {
+			if (g.getCodigo() == cod) {
+				return g;
+			}
+		}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Genero other = (Genero) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
+		throw new IllegalArgumentException("Código de Genero inválido: " + cod);
 	}
 
 }

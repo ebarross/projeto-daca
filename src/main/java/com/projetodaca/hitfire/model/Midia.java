@@ -1,5 +1,7 @@
 package com.projetodaca.hitfire.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,8 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Midia {
-
+public class Midia implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -26,14 +29,13 @@ public class Midia {
 	private Artista artista;
 
 	@OneToMany(mappedBy = "midia")
-	private List<Link> links;
+	private List<Link> links = new ArrayList<Link>();
 
 	public Midia() {
 	}
 
-	public Midia(String nome, Artista artista) {
+	public Midia(String nome) {
 		this.nome = nome;
-		this.artista = artista;
 	}
 
 	public Integer getId() {

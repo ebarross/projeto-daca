@@ -1,17 +1,21 @@
 package com.projetodaca.hitfire.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Artista {
+public class Artista implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,12 +33,23 @@ public class Artista {
 	@Column
 	private Integer genero;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "artista")
-	private List<Midia> midias;
+	private List<Midia> midias = new ArrayList<>();
 
-	public Artista(String nome, GeneroEnum genero) {
+	public Artista() {
+
+	}
+
+	public Artista(String nome, Genero genero, String email, String imgPerfil) {
 		this.nome = nome;
 		this.genero = genero.getCodigo();
+		this.email = email;
+		this.imgPerfil = imgPerfil;
+	}
+
+	public Artista(String nome, Genero genero, String email) {
+		this(nome, genero, email, null);
 	}
 
 	public String getNome() {
@@ -67,6 +82,26 @@ public class Artista {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Genero getGenero() {
+		return Genero.toEnum(genero);
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero.getCodigo();
+	}
+
+	public List<Midia> getMidias() {
+		return midias;
+	}
+
+	public void setMidias(List<Midia> midias) {
+		this.midias = midias;
+	}
+	
+	public void addMidia(Midia midia) {
+		this.midias.add(midia);
 	}
 
 	@Override
