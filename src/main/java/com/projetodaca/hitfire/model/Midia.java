@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Midia implements Serializable {
@@ -28,7 +31,8 @@ public class Midia implements Serializable {
 	@JoinColumn(name = "artista_id")
 	private Artista artista;
 
-	@OneToMany(mappedBy = "midia")
+	@JsonIgnore
+	@OneToMany(mappedBy = "midia", cascade = CascadeType.ALL)
 	private List<Link> links = new ArrayList<Link>();
 
 	public Midia() {

@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.model;
+package com.projetodaca.hitfire.enums;
 
 public enum Genero {
 

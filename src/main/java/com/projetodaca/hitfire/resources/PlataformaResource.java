@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.restcontroller;
+package com.projetodaca.hitfire.resources;
 
 import java.net.URI;
 import java.util.List;

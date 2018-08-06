@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.projetodaca.hitfire.enums.Genero;
 
 @Entity
 public class Artista implements Serializable {
@@ -34,7 +36,7 @@ public class Artista implements Serializable {
 	private Integer genero;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "artista")
+	@OneToMany(mappedBy = "artista", cascade = CascadeType.ALL)
 	private List<Midia> midias = new ArrayList<>();
 
 	public Artista() {

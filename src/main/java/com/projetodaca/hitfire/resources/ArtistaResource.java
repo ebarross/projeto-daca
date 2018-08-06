@@ -1,8 +1,9 @@
-package com.projetodaca.hitfire.restcontroller;
+package com.projetodaca.hitfire.resources;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.projetodaca.hitfire.dto.MidiaDTO;
 import com.projetodaca.hitfire.exception.ResourceNotFoundException;
 import com.projetodaca.hitfire.model.Artista;
 import com.projetodaca.hitfire.model.Midia;
@@ -105,17 +107,20 @@ public class ArtistaResource {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 
-		return new ResponseEntity<>(midias, HttpStatus.OK);
+		List<MidiaDTO> midiasDto = midias.stream().map(obj -> new MidiaDTO(obj)).collect(Collectors.toList());
+		return new ResponseEntity<>(midiasDto, HttpStatus.OK);
 	}
 
 	@ApiOperation("Adiciona uma mídia a um artista.")
 	@PostMapping(value = "/{id}/midias")
-	public ResponseEntity<?> addMidia(@PathVariable Integer id, @RequestBody Midia midia) {
+	public ResponseEntity<?> addMidia(@PathVariable Integer id, @RequestBody MidiaDTO midiaDto) {
 		Optional<Artista> artista = repository.findById(id);
 
 		if (!artista.isPresent()) {
 			throw new ResourceNotFoundException(id.toString());
 		}
+		
+		Midia midia = new Midia(midiaDto.getNome());
 
 		midia.setArtista(artista.get());
 		Midia novaMidia = midiaRepository.save(midia);

@@ -1,4 +1,4 @@
-package com.projetodaca.hitfire.restcontroller;
+package com.projetodaca.hitfire.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

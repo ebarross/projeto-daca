@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Entity
 public class Plataforma implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -30,6 +30,12 @@ public class Plataforma implements Serializable {
 
 	public Plataforma(String nome) {
 		this.nome = nome;
+	}
+	
+	public Plataforma(String nome, String imgLogo, String site) {
+		this.nome = nome;
+		this.imgLogo = imgLogo;
+		this.site = site;
 	}
 
 	public Integer getId() {

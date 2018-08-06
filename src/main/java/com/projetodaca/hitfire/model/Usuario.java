@@ -1,17 +1,26 @@
 package com.projetodaca.hitfire.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.projetodaca.hitfire.enums.Perfil;
+
 @Entity // informar que sera uma tabela no bd.
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -22,16 +31,23 @@ public class Usuario implements Serializable {
 	@Column(nullable = false)
 	private String email;
 
+	@JsonIgnore
 	@Column(nullable = false)
 	private String senha;
 
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "perfis")
+	private Set<Integer> perfis = new HashSet<>();
+
 	public Usuario() {
+		addPerfil(Perfil.USUARIO);
 	}
 
 	public Usuario(String nome, String email, String senha) {
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
+		addPerfil(Perfil.USUARIO);
 	}
 
 	public Integer getId() {
@@ -64,6 +80,14 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(obj -> Perfil.toEnum(obj)).collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Perfil perfil) {
+		this.perfis.add(perfil.getCodigo());
 	}
 
 	@Override
@@ -113,4 +137,5 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
+
 }

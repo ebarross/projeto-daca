@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.projetodaca.hitfire.dto.UsuarioDTO;
 import com.projetodaca.hitfire.model.Usuario;
 import com.projetodaca.hitfire.repositories.UsuarioRepository;
 
@@ -26,13 +27,12 @@ public class UsuarioService {
 	/*
 	 * apenas atualizando, não verifica se objeto existe.
 	 */
-	public Usuario atualizaUsuario(Usuario novoUsuario) {
+	public Usuario atualizaUsuario(UsuarioDTO novoUsuario) {
 
 		Usuario usuario = usuarioRepository.findById(novoUsuario.getId()).get();
 
 		usuario.setNome(novoUsuario.getNome());
 		usuario.setEmail(novoUsuario.getEmail());
-		usuario.setSenha(novoUsuario.getSenha());
 		
 		usuarioRepository.save(usuario);
 
