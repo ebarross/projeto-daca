@@ -3,17 +3,30 @@ package com.projetodaca.hitfire.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.projetodaca.hitfire.dto.UsuarioDTO;
 import com.projetodaca.hitfire.model.Usuario;
 import com.projetodaca.hitfire.repositories.UsuarioRepository;
+import com.projetodaca.hitfire.security.UsuarioSS;
 
 @Service
 public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	/*
+	 * Retorna o usuário logado.
+	 */
+	public static UsuarioSS authenticated() {
+		try {
+			return (UsuarioSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	public Usuario getUsuario(Integer id) {
 		return null;
